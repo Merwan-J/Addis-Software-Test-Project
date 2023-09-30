@@ -9,7 +9,6 @@ import {
 
 async function fetchApiData(url, headers) {
     const response = await fetch(url, headers);
-    console.log(response, "response");
     const data = await response.json();
 
     return data;
@@ -23,10 +22,8 @@ const BASE_URL =
 function* getSongsSaga() {
     try {
         const data = yield call(fetchApiData, BASE_URL + "/songs");
-        console.log(data);
         yield put(getSongSuccess(data));
     } catch (error) {
-        console.log(error);
         yield put(songFailure(error));
     }
 }
@@ -44,7 +41,6 @@ function* createSongSaga(action) {
             },
             body: JSON.stringify(action.payload),
         });
-        console.log(data);
         yield put(createSongSuccess(data));
     } catch (error) {
         yield put(songFailure(error));
@@ -56,7 +52,6 @@ function* watchCreateSongSaga() {
 
 function* deleteSongSaga(action) {
     try {
-        console.log("in the saga");
         yield call(fetchApiData, `${BASE_URL}/songs/${action.payload}`, {
             method: "DELETE",
         });
@@ -82,10 +77,8 @@ function* updateSongSaga(action) {
                 body: JSON.stringify(action.payload),
             }
         );
-        console.log(data, "success");
         yield put(updateSongSuccess(data));
     } catch (error) {
-        console.log(error);
         yield put(songFailure(error));
     }
 }

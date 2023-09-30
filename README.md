@@ -1,6 +1,6 @@
 # Getting Started With the Test Project
 
-The Project shows you the list of songs fetched from the local db. It also supports create, update and delete.
+The web app shows the list of songs fetched from the local db. It also supports create, update and delete operations for the songs.
 The project implemented the libraries in the instructions sent out and some others for better user experience.
 
 ## Running The Front-End
@@ -13,6 +13,5 @@ In the project directory, you can run:
 
 In the project directory, you can run:
 
-### json-server --watch db.json
+### `json-server --watch db.json`
 
-### `npm test`

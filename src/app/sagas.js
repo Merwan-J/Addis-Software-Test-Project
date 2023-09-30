@@ -15,7 +15,10 @@ async function fetchApiData(url, headers) {
     return data;
 }
 
-const BASE_URL = "https://addis-software-test-project-backend.onrender.com";
+const BASE_URL =
+    process.env.NODE_ENV === "production"
+        ? "https://addis-software-test-project-backend.onrender.com"
+        : "http://localhost:7000/api";
 
 function* getSongsSaga() {
     try {

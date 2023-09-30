@@ -4,6 +4,8 @@ const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 
+const PORT = process.env.PORT || 7000;
+
 server.use(middlewares);
 server.use(
     jsonServer.rewriter({
@@ -11,7 +13,7 @@ server.use(
     })
 );
 server.use(router);
-server.listen(8080, () => {
+server.listen(PORT, () => {
     console.log("JSON Server is running");
 });
 

@@ -15,7 +15,7 @@ async function fetchApiData(url, headers) {
     return data;
 }
 
-const BASE_URL = "https://addis-software-test-project.vercel.app/api";
+const BASE_URL = "https://addis-software-test-project-backend.onrender.com";
 
 function* getSongsSaga() {
     try {

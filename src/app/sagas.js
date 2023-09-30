@@ -9,16 +9,21 @@ import {
 
 async function fetchApiData(url, headers) {
     const response = await fetch(url, headers);
+    console.log(response, "response");
     const data = await response.json();
 
     return data;
 }
 
+const BASE_URL = "https://addis-software-test-project.vercel.app/api";
+
 function* getSongsSaga() {
     try {
-        const data = yield call(fetchApiData, "http://localhost:5000/songs");
+        const data = yield call(fetchApiData, BASE_URL + "/songs");
+        console.log(data);
         yield put(getSongSuccess(data));
     } catch (error) {
+        console.log(error);
         yield put(songFailure(error));
     }
 }
@@ -29,7 +34,7 @@ function* watchGetSongsSaga() {
 
 function* createSongSaga(action) {
     try {
-        const data = yield call(fetchApiData, "http://localhost:5000/songs", {
+        const data = yield call(fetchApiData, BASE_URL + "/songs", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -49,13 +54,9 @@ function* watchCreateSongSaga() {
 function* deleteSongSaga(action) {
     try {
         console.log("in the saga");
-        yield call(
-            fetchApiData,
-            `http://localhost:5000/songs/${action.payload}`,
-            {
-                method: "DELETE",
-            }
-        );
+        yield call(fetchApiData, `${BASE_URL}/songs/${action.payload}`, {
+            method: "DELETE",
+        });
         yield put(deleteSongSuccess(action.payload));
     } catch (error) {
         yield put(songFailure(error));
@@ -69,7 +70,7 @@ function* updateSongSaga(action) {
     try {
         const data = yield call(
             fetchApiData,
-            `http://localhost:5000/songs/${action.payload.id}`,
+            `${BASE_URL}/songs/${action.payload.id}`,
             {
                 method: "PATCH",
                 headers: {
@@ -78,8 +79,10 @@ function* updateSongSaga(action) {
                 body: JSON.stringify(action.payload),
             }
         );
+        console.log(data, "success");
         yield put(updateSongSuccess(data));
     } catch (error) {
+        console.log(error);
         yield put(songFailure(error));
     }
 }
